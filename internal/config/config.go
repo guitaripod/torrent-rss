@@ -23,7 +23,7 @@ func NewConfig() *Config {
 	downloadPath := filepath.Join(homeDir, "Downloads", "torrents")
 
 	return &Config{
-		SearchTerms:   []string{"Formula1", "UFC", "Monk"},
+		SearchTerms:   []string{"Formula1", "UFC"},
 		CheckInterval: "0 */12 * * *",
 		DownloadPath:  downloadPath,
 		RSSURL:        "https://www.torrentday.com/t.rss?7;u=2550949;tp=60241506062941b14d022ed0fabe8e58;GuitarIpod;private;do-not-share",

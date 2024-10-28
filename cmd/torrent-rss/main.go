@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"log"
+
 	"torrent-rss/internal/config"
+	"torrent-rss/internal/downloader"
 	"torrent-rss/internal/parser"
 )
 
@@ -23,12 +25,25 @@ func main() {
 		return
 	}
 
+	// Initialize downloader
+	d, err := downloader.NewDownloader(cfg.DownloadPath)
+	if err != nil {
+		log.Fatalf("Error creating downloader: %v", err)
+	}
+
 	for _, item := range matches {
 		fmt.Println("=== Match Found ===")
 		fmt.Printf("Title: %s\n", item.Title)
 		fmt.Printf("Link: %s\n", item.Link)
-		fmt.Printf("Date: %s\n", item.PubDate)
-		fmt.Printf("Details: %s\n\n", item.Description)
+		fmt.Printf("Date: %s\n", item.Description)
+
+		// Download the torrent
+		fmt.Printf("Downloading torrent file...\n")
+		if err := d.DownloadTorrent(item.Link); err != nil {
+			fmt.Printf("Error downloading torrent: %v\n", err)
+			continue
+		}
+		fmt.Printf("Successfully downloaded torrent file\n\n")
 	}
 
 	fmt.Printf("Total matches found: %d\n", len(matches))

@@ -25,8 +25,8 @@ func main() {
 		return
 	}
 
-	// Initialize downloader
-	d, err := downloader.NewDownloader(cfg.DownloadPath)
+	// Initialize downloader with RSS URL for auth
+	d, err := downloader.NewDownloader(cfg.DownloadPath, cfg.RSSURL)
 	if err != nil {
 		log.Fatalf("Error creating downloader: %v", err)
 	}
@@ -43,7 +43,6 @@ func main() {
 			fmt.Printf("Error downloading torrent: %v\n", err)
 			continue
 		}
-		fmt.Printf("Successfully downloaded torrent file\n\n")
 	}
 
 	fmt.Printf("Total matches found: %d\n", len(matches))

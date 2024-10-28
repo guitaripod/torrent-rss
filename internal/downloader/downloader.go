@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 
 	"golang.org/x/net/html"
@@ -200,19 +201,29 @@ func (d *Downloader) DownloadTorrent(pageURL string) error {
 	return nil
 }
 
+// cleanTorrentName removes unwanted tags and normalizes the filename format
 func cleanTorrentName(filename string) string {
-	// First URL decode the name
+	// First, URL decode the name to handle encoded characters
 	decoded, err := url.QueryUnescape(filename)
 	if err != nil {
-		return filename // return original if decoding fails
+		return filename // fallback to the original name if decoding fails
 	}
 
-	// Remove the common suffixes
+	// Remove common suffixes, streaming service tags, and redundant info
 	cleaned := strings.TrimSuffix(decoded, ".torrent")
-	cleaned = strings.TrimSuffix(cleaned, " WEB-DL DD 2 0 H 264-playWEB")
-	cleaned = strings.TrimSuffix(cleaned, " NF")
-	cleaned = strings.TrimSuffix(cleaned, " 1080p")
+	cleaned = strings.ReplaceAll(cleaned, " NF", "")
+	cleaned = strings.ReplaceAll(cleaned, " WEB-DL", "")
+	cleaned = strings.ReplaceAll(cleaned, " DD 5 1", "")
+	cleaned = strings.ReplaceAll(cleaned, " DD 2 0", "")
+	cleaned = strings.ReplaceAll(cleaned, " H 264", "")
+	cleaned = strings.ReplaceAll(cleaned, "-playWEB", "")
+	cleaned = strings.ReplaceAll(cleaned, " 1080p", "")
+	cleaned = strings.TrimSpace(cleaned)
 
-	// Add back .torrent extension
+	// Use regex to remove unnecessary tokens like quality tags or unwanted extra info
+	cleaned = regexp.MustCompile(`\b(1080p|720p|x264|BluRay|HDRip)\b`).ReplaceAllString(cleaned, "")
+	cleaned = regexp.MustCompile(`\s+`).ReplaceAllString(cleaned, " ") // replace multiple spaces with a single space
+
+	// Add .torrent extension back
 	return cleaned + ".torrent"
 }

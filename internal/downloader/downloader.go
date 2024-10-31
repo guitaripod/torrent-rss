@@ -18,7 +18,8 @@ import (
 type Downloader struct {
 	client      *http.Client
 	downloadDir string
-	authParams  map[string]string
+	baseURL     string
+	authCookie  string
 }
 
 func extractAuthFromRSS(rssURL string) map[string]string {
@@ -44,7 +45,7 @@ func extractAuthFromRSS(rssURL string) map[string]string {
 	return auth
 }
 
-func NewDownloader(downloadDir string, rssURL string) (*Downloader, error) {
+func NewDownloader(downloadDir, baseURL, cookieAuth string) (*Downloader, error) {
 	jar, err := cookiejar.New(&cookiejar.Options{
 		PublicSuffixList: publicsuffix.List,
 	})
@@ -52,7 +53,6 @@ func NewDownloader(downloadDir string, rssURL string) (*Downloader, error) {
 		return nil, fmt.Errorf("failed to create cookie jar: %w", err)
 	}
 
-	// Create HTTP client with cookie jar
 	client := &http.Client{
 		Jar: jar,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
@@ -67,32 +67,14 @@ func NewDownloader(downloadDir string, rssURL string) (*Downloader, error) {
 	return &Downloader{
 		client:      client,
 		downloadDir: downloadDir,
-		authParams:  extractAuthFromRSS(rssURL),
+		baseURL:     baseURL,
+		authCookie:  cookieAuth,
 	}, nil
-}
-
-func (d *Downloader) addAuthToURL(targetURL string) string {
-	parsedURL, err := url.Parse(targetURL)
-	if err != nil {
-		return targetURL
-	}
-
-	q := parsedURL.Query()
-	// Add auth params that have values
-	for key, value := range d.authParams {
-		if value != "" {
-			q.Set(key, value)
-		}
-	}
-
-	parsedURL.RawQuery = q.Encode()
-	return parsedURL.String()
 }
 
 func (d *Downloader) findDownloadLink(pageURL string) (string, error) {
 	torrentID := filepath.Base(pageURL)
-	authenticatedURL := fmt.Sprintf("https://www.torrentday.com/torrent.php?id=%s", torrentID)
-	cookieValue := "uid=2550949; pass=8f645a7b1785f3b624c7a151456953c8"
+	authenticatedURL := fmt.Sprintf("%s/torrent.php?id=%s", d.baseURL, torrentID)
 
 	req, err := http.NewRequest("GET", authenticatedURL, nil)
 	if err != nil {
@@ -102,7 +84,7 @@ func (d *Downloader) findDownloadLink(pageURL string) (string, error) {
 	req.Header.Set("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
 	req.Header.Set("accept-language", "en-US,en;q=0.9")
 	req.Header.Set("cache-control", "max-age=0")
-	req.Header.Set("cookie", cookieValue)
+	req.Header.Set("cookie", d.authCookie)
 	req.Header.Set("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36")
 
 	resp, err := d.client.Do(req)

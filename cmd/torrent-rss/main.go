@@ -6,6 +6,8 @@ import (
 	"torrent-rss/internal/config"
 	"torrent-rss/internal/downloader"
 	"torrent-rss/internal/parser"
+
+	"github.com/joho/godotenv"
 )
 
 // Define ANSI color codes for a cyberpunk theme
@@ -19,15 +21,20 @@ const (
 	colorGray       = "\033[1;90m"
 )
 
+func init() {
+	if err := godotenv.Load(); err != nil {
+		fmt.Printf("%s⚠️  No .env file found, checking system environment variables...%s\n", colorNeonYellow, colorReset)
+	}
+}
+
 func main() {
 	cfg := config.NewConfig()
 	p := parser.NewParser()
 
-	// Cyberpunk-style intro message with animated symbols
 	fmt.Printf("%s⚡️>>> Searching for %s《%v》%s matches with %s1080p%s... ⚡️%s\n\n",
 		colorNeonBlue, colorNeonPink, cfg.SearchTerms, colorNeonBlue, colorNeonYellow, colorNeonBlue, colorReset)
 
-	matches, err := p.FetchAndParse(cfg.RSSURL, cfg.SearchTerms)
+	matches, err := p.FetchAndParse(cfg.GetRSSURL(), cfg.SearchTerms)
 	if err != nil {
 		log.Fatalf("%s💀 Error parsing RSS feed: %v 💀%s", colorNeonRed, err, colorReset)
 	}
@@ -37,8 +44,10 @@ func main() {
 		return
 	}
 
-	// Initialize downloader with RSS URL for auth
-	d, err := downloader.NewDownloader(cfg.DownloadPath, cfg.RSSURL)
+	d, err := downloader.NewDownloader(cfg.DownloadPath, cfg.BaseURL, cfg.GetAuthCookie())
+	if err != nil {
+		log.Fatalf("%s💀 Error creating downloader: %v 💀%s", colorNeonRed, err, colorReset)
+	}
 	if err != nil {
 		log.Fatalf("%s💀 Error creating downloader: %v 💀%s", colorNeonRed, err, colorReset)
 	}

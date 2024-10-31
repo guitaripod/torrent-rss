@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  torrent-rss:
+    build: .
+    container_name: torrent-rss
+    environment:
+      - TD_USER_ID=${TD_USER_ID}
+      - TD_TOKEN=${TD_TOKEN}
+      - TD_RSS_TOKEN=${TD_RSS_TOKEN}
+      - TD_BASE_URL=${TD_BASE_URL}
+      - TD_SEARCH_TERMS=${TD_SEARCH_TERMS}
+      - TD_CHECK_INTERVAL=${TD_CHECK_INTERVAL}
+      - TD_DOWNLOAD_PATH=/downloads
+    volumes:
+      - ./downloads:/downloads
+    restart: unless-stopped

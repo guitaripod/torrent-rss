@@ -18,6 +18,7 @@ A sleek, automated torrent RSS feed monitor and downloader written in Go. This t
 
 ## 📋 Prerequisites
 
+- Support is only for **TV/x264** files (for now)
 - Go 1.19 or higher
 - Access to TorrentDay.com (invite-only website)
 - RSS feed access on TorrentDay

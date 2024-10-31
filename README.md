@@ -7,6 +7,10 @@
 [![Platform Support](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey?style=flat-square)](https://github.com/marcusziade/torrent-rss)
 [![Static Badge](https://img.shields.io/badge/RSS-feed-orange?style=flat-square&logo=rss)](https://github.com/marcusziade/torrent-rss)
 
+![torrent-rss-demo](https://github.com/user-attachments/assets/af50f8f9-c780-4f67-b286-a680a38f16b3)
+
+
+
 A sleek, automated torrent RSS feed monitor and downloader written in Go. This tool automatically checks your private tracker's RSS feed for new torrents matching your search terms and downloads them.
 
 ## ✨ Features

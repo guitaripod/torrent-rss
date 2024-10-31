@@ -1,8 +1,8 @@
 # 🌊 Torrent RSS Downloader
 
-[![Go Version](https://img.shields.io/github/go-mod/go-version/username/torrent-rss?style=flat-square)](https://go.dev)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/marcusziade/torrent-rss?style=flat-square)](https://go.dev)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
-[![Maintenance](https://img.shields.io/badge/maintained%3F-yes-green.svg?style=flat-square)](https://github.com/username/torrent-rss/graphs/commit-activity)
+[![Maintenance](https://img.shields.io/badge/maintained%3F-yes-green.svg?style=flat-square)](https://github.com/marcusziade/torrent-rss/graphs/commit-activity)
 
 A sleek, automated torrent RSS feed monitor and downloader written in Go. This tool automatically checks your private tracker's RSS feed for new torrents matching your search terms and downloads them.
 
@@ -11,7 +11,7 @@ A sleek, automated torrent RSS feed monitor and downloader written in Go. This t
 - 🔄 Automated RSS feed monitoring
 - 🔍 Configurable search terms
 - ⚡️ Fast and lightweight
-- 🎯 1080p quality filter
+- 🎯 File quality filters
 - 🔐 Secure authentication handling
 - 📁 Customizable download directory
 - ⏰ Configurable check intervals

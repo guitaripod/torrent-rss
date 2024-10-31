@@ -58,7 +58,8 @@ func main() {
 		fmt.Printf("%s⚡️=== Match Found ===⚡️%s\n", colorNeonPink, colorReset)
 		fmt.Printf("%sTitle:%s %s%s%s\n", colorNeonYellow, colorReset, colorNeonGreen, item.Title, colorReset)
 		fmt.Printf("%sLink:%s %s%s%s\n", colorNeonYellow, colorReset, colorNeonGreen, item.Link, colorReset)
-		fmt.Printf("%sDate:%s %s%s%s\n", colorNeonYellow, colorReset, colorNeonGreen, item.Description, colorReset)
+		fmt.Printf("%sDate:%s %s%s%s\n", colorNeonYellow, colorReset, colorNeonGreen, item.PubDate, colorReset)
+		fmt.Printf("%sDescription:%s %s%s%s\n", colorNeonYellow, colorReset, colorNeonGreen, item.Description, colorReset)
 		fmt.Printf("%s⏬ Downloading torrent file...%s\n", colorNeonBlue, colorReset)
 
 		// Download the torrent

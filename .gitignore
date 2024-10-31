@@ -1,2 +1,3 @@
 .env
 *.torrent
+.DS_store

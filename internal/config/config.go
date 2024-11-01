@@ -72,7 +72,8 @@ func NewConfig() *Config {
 func (c *Config) GetRSSURL() string {
 	// TODO: - Improvement area:
 	// The number 7 corresponds to the torrent category TV/x264. Every category has a number or a sequence of numbers for multiple categories if the RSS feed is configured as such.
-	return c.BaseURL + "/t.rss?7;u=" + c.UserID + ";tp=" + c.RSSToken + ";GuitarIpod;private;do-not-share"
+	// anime(29), TV/x264(7)
+	return c.BaseURL + "/t.rss?29;7;u=" + c.UserID + ";tp=" + c.RSSToken + ";GuitarIpod;private;do-not-share"
 }
 
 // GetAuthCookie returns the cookie string for downloads

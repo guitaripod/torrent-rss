@@ -26,7 +26,7 @@ A sleek, automated torrent RSS feed monitor and downloader written in Go. This t
 
 ## 📋 Prerequisites
 
-- Support is only for **TV/x264** files (for now)
+- Support is only for **Anime, TV/x264**files (for now)
 - Docker (recommended) or Go 1.22.5+
 - Access to TorrentDay.com (invite-only website)
 - RSS feed access on TorrentDay

@@ -2,10 +2,10 @@
 
 [![Go Version](https://img.shields.io/badge/Go-1.22.5-00ADD8?style=flat-square&logo=go)](https://go.dev)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
-[![Maintenance](https://img.shields.io/badge/maintained%3F-yes-green.svg?style=flat-square)](https://github.com/marcusziade/torrent-rss/graphs/commit-activity)
+[![Maintenance](https://img.shields.io/badge/maintained%3F-yes-green.svg?style=flat-square)](https://github.com/guitaripod/torrent-rss/graphs/commit-activity)
 [![Docker Support](https://img.shields.io/badge/Docker-ready-2496ED?style=flat-square&logo=docker)](https://www.docker.com/)
-[![Platform Support](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey?style=flat-square)](https://github.com/marcusziade/torrent-rss)
-[![Static Badge](https://img.shields.io/badge/RSS-feed-orange?style=flat-square&logo=rss)](https://github.com/marcusziade/torrent-rss)
+[![Platform Support](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey?style=flat-square)](https://github.com/guitaripod/torrent-rss)
+[![Static Badge](https://img.shields.io/badge/RSS-feed-orange?style=flat-square&logo=rss)](https://github.com/guitaripod/torrent-rss)
 
 ![torrent-rss-demo](https://github.com/user-attachments/assets/af50f8f9-c780-4f67-b286-a680a38f16b3)
 
